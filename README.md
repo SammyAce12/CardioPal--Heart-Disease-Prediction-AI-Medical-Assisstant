@@ -31,30 +31,6 @@ It combines:
 
 ---
 
-## 🖼️ Screenshots
-
-### 🏠 Dashboard
-
-*Add your screenshot here*
-
-```
-/screenshots/dashboard.png
-```
-
-### 📊 Prediction Result
-
-```
-/screenshots/result.png
-```
-
-### 📘 Guide Page (Voice Enabled)
-
-```
-/screenshots/guide.png
-```
-
----
-
 ## 🚀 Features
 
 ### 🔐 Authentication
