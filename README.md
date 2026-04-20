@@ -48,15 +48,6 @@ It combines:
 * Color-coded alerts (Low / Medium / High Risk)
 * Futuristic glassmorphism design
 
-### 🔊 Accessibility
-
-* Voice assistant for guidance
-* Multi-language support:
-
-  * English 🇬🇧
-  * Hausa 🇳🇬
-  * Igbo 🇳🇬
-  * Yoruba 🇳🇬
 
 ### 📊 Data Tracking
 
