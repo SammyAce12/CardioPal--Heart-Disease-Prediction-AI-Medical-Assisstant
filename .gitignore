@@ -1,0 +1,8 @@
+.tmp_pydeps/
+sklearn-env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+Thumbs.db
