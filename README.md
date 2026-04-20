@@ -102,8 +102,6 @@ CardioPal/
 │   ├── style.css
 │   ├── script.js
 │
-├── screenshots/
-│
 └── README.md
 ```
 
