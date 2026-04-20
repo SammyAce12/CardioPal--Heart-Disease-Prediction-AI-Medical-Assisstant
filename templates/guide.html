@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>How to Use CardioPal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="guide-page">
+
+<div class="navbar">
+    <h2>CardioPal</h2>
+    <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/guide">How to Use</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<main class="guide-shell">
+    <section class="guide-hero">
+        <p class="eyebrow">Easy Guide</p>
+        <h1>How to fill the heart form</h1>
+        <p class="guide-lead">This page explains every box in simple words. You can follow it one line at a time and type the number you see from your age, home device, or hospital paper.</p>
+
+        <div class="guide-callout">
+            <h3>Simple rule</h3>
+            <p>If you do not know a value, stop there and ask a nurse, doctor, or health worker. It is better to use the correct number than to guess.</p>
+        </div>
+    </section>
+
+    <section class="guide-grid">
+        <article class="guide-card">
+            <div class="guide-number">1</div>
+            <h3>Age</h3>
+            <p>Type your age in years.</p>
+            <p class="guide-example">Example: `45`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">2</div>
+            <h3>Sex</h3>
+            <p>Type `1` for male. Type `0` for female.</p>
+            <p class="guide-example">Male = `1`, Female = `0`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">3</div>
+            <h3>Chest Pain Type</h3>
+            <p>This number describes the kind of chest pain written on a hospital report.</p>
+            <p class="guide-example">Usually a number from `0` to `3`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">4</div>
+            <h3>Blood Pressure</h3>
+            <p>Type the top blood pressure number from your BP machine or clinic result.</p>
+            <p class="guide-example">Example: `120`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">5</div>
+            <h3>Cholesterol</h3>
+            <p>Type the cholesterol number from your blood test paper.</p>
+            <p class="guide-example">Example: `200`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">6</div>
+            <h3>Fasting Blood Sugar</h3>
+            <p>This box asks if fasting blood sugar is above 120.</p>
+            <p class="guide-example">High = `1`, Normal = `0`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">7</div>
+            <h3>EKG Results</h3>
+            <p>Type the EKG result number shown on your test sheet.</p>
+            <p class="guide-example">Usually `0`, `1`, or `2`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">8</div>
+            <h3>Maximum Heart Rate</h3>
+            <p>Type the highest heart rate from an exercise test or clinic report.</p>
+            <p class="guide-example">Example: `150`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">9</div>
+            <h3>Exercise Angina</h3>
+            <p>This means chest pain during exercise.</p>
+            <p class="guide-example">Yes = `1`, No = `0`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">10</div>
+            <h3>ST Depression</h3>
+            <p>Type the ST depression number exactly as it appears on the medical result.</p>
+            <p class="guide-example">Example: `1.5`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">11</div>
+            <h3>Slope of ST</h3>
+            <p>Type the slope number from the report.</p>
+            <p class="guide-example">Usually `0`, `1`, or `2`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">12</div>
+            <h3>Number of Vessels</h3>
+            <p>This is the number of major blood vessels colored in the test result.</p>
+            <p class="guide-example">Usually `0` to `3`</p>
+        </article>
+
+        <article class="guide-card">
+            <div class="guide-number">13</div>
+            <h3>Thallium Test</h3>
+            <p>Type the thallium result from the report.</p>
+            <p class="guide-example">Common values: `3`, `6`, `7`</p>
+        </article>
+    </section>
+
+    <section class="guide-footer-card">
+        <h2>Before you press predict</h2>
+        <p>Check each box slowly. Make sure numbers match your hospital paper. If one value is missing, ask for help before submitting.</p>
+        <a href="/dashboard" class="btn">Back to Dashboard</a>
+    </section>
+
+    <section class="metrics-panel">
+        <div class="metrics-header">
+            <p class="eyebrow">Model Performance</p>
+            <h2>Confusion matrix and classification report</h2>
+            <p>This summary shows how the current heart disease model performed on its held-out test set.</p>
+            <p class="metrics-note">Accuracy: {{ "%.2f"|format(model_evaluation.accuracy * 100) }}% across {{ model_evaluation.test_size }} test records. {{ model_evaluation.split_note }}</p>
+        </div>
+
+        <div class="metrics-grid">
+            <article class="metrics-card">
+                <h3>Confusion Matrix</h3>
+                <div class="table-wrap">
+                    <table class="metrics-table">
+                        <thead>
+                            <tr>
+                                <th>Actual \ Predicted</th>
+                                <th>{{ model_evaluation.labels[0] }}</th>
+                                <th>{{ model_evaluation.labels[1] }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in model_evaluation.confusion_matrix %}
+                                <tr>
+                                    <th>{{ row.actual }}</th>
+                                    <td>{{ row.predicted_absence }}</td>
+                                    <td>{{ row.predicted_presence }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+
+            <article class="metrics-card">
+                <h3>Classification Report</h3>
+                <div class="table-wrap">
+                    <table class="metrics-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Precision</th>
+                                <th>Recall</th>
+                                <th>F1-Score</th>
+                                <th>Support</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in model_evaluation.classification_report %}
+                                <tr>
+                                    <th>{{ row.label }}</th>
+                                    <td>{{ "%.4f"|format(row.precision) }}</td>
+                                    <td>{{ "%.4f"|format(row.recall) }}</td>
+                                    <td>{{ "%.4f"|format(row.f1_score) }}</td>
+                                    <td>{{ row.support }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

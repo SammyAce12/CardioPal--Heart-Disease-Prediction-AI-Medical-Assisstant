@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CardioPal Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .layout {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            height: 100vh;
+        }
+
+        .sidebar h3 {
+            color: #00f2fe;
+        }
+
+        .sidebar a {
+            display: block;
+            margin: 15px 0;
+            color: white;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        canvas {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h3>⚡ CardioPal</h3>
+        <a href="#">Dashboard</a>
+        <a href="#">Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+
+        <div class="card">
+            <h2>🔥 AI Calorie Predictor</h2>
+
+            <form method="POST">
+                <input name="age" placeholder="Age" required>
+                <input name="weight" placeholder="Weight" required>
+                <input name="height" placeholder="Height" required>
+                <input name="duration" placeholder="Duration" required>
+
+                <button type="submit">Predict</button>
+            </form>
+
+            {% if result %}
+                <div class="result">
+                    🔥 Calories: {{ result }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- CHART -->
+        <div class="card">
+            <h3>📊 Calorie History</h3>
+            <canvas id="chart"></canvas>
+        </div>
+
+        <!-- AI RECOMMENDATION -->
+        <div class="card">
+            <h3>🧠 AI Recommendation</h3>
+
+            {% if result %}
+                {% if result < 150 %}
+                    <p>💡 Try increasing workout intensity.</p>
+                {% elif result < 300 %}
+                    <p>💪 Good job! Maintain consistency.</p>
+                {% else %}
+                    <p>🔥 Excellent burn! Stay hydrated and rest well.</p>
+                {% endif %}
+            {% else %}
+                <p>Make a prediction to get recommendations.</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const data = /* {{ calories | tojson }} */ [];
+
+    const ctx = document.getElementById('chart');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.map((_, i) => "Session " + (i+1)),
+            datasets: [{
+                label: 'Calories Burned',
+                data: data,
+                borderWidth: 2,
+                tension: 0.4
+            }]
+        }
+    });
+</script>
+
+</body>
+</html>

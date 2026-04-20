@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - CardioPal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="navbar">
+    <h2>CardioPal</h2>
+
+    <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/guide">How to Use</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+<div class="container">
+    <div class="card">
+        <h2>CardioPal AI</h2>
+        <p class="form-intro">Fill the form slowly. If a number comes from a hospital paper, copy it exactly as written.</p>
+
+        <form method="POST">
+
+            <label>Age</label>
+            <input name="Age" placeholder="Enter your age (e.g. 45)" required>
+            <p class="field-help">Write your age in years. Example: if you are 45 years old, type 45.</p>
+
+            <label>Sex</label>
+            <input name="Sex" placeholder="0 = Female, 1 = Male" required>
+            <p class="field-help">Type 1 for male. Type 0 for female.</p>
+
+            <label>Chest Pain Type</label>
+            <input name="Chest pain type" placeholder="0-3 (type of chest pain)" required>
+            <p class="field-help">Type the chest pain number from your clinic or hospital paper. Ask a health worker if you do not know it.</p>
+
+            <label>Blood Pressure (BP)</label>
+            <input name="BP" placeholder="e.g. 120" required>
+            <p class="field-help">Type the top blood pressure number from your BP machine or clinic result. Example: 120.</p>
+
+            <label>Cholesterol</label>
+            <input name="Cholesterol" placeholder="e.g. 200 mg/dl" required>
+            <p class="field-help">Type the cholesterol number from your blood test result. Example: 200.</p>
+
+            <label>Fasting Blood Sugar</label>
+            <input name="FBS over 120" placeholder="1 = True, 0 = False" required>
+            <p class="field-help">If fasting blood sugar is above 120, type 1. If it is 120 or below, type 0.</p>
+
+            <label>EKG Results</label>
+            <input name="EKG results" placeholder="0-2 (electrocardiographic results)" required>
+            <p class="field-help">Type the EKG result number shown on your hospital report. It is usually 0, 1, or 2.</p>
+
+            <label>Maximum Heart Rate</label>
+            <input name="Max HR" placeholder="e.g. 150" required>
+            <p class="field-help">Type the highest heart rate from your exercise or hospital test. Example: 150.</p>
+
+            <label>Exercise Induced Angina</label>
+            <input name="Exercise angina" placeholder="1 = Yes, 0 = No" required>
+            <p class="field-help">If exercise causes chest pain, type 1. If exercise does not cause chest pain, type 0.</p>
+
+            <label>ST Depression</label>
+            <input name="ST depression" placeholder="e.g. 1.5" required>
+            <p class="field-help">Copy this number exactly from your medical result. Example: 1.5.</p>
+
+            <label>Slope of ST Segment</label>
+            <input name="Slope of ST" placeholder="0-2" required>
+            <p class="field-help">Type the slope number from the report. It is usually 0, 1, or 2.</p>
+
+            <label>Number of Major Vessels</label>
+            <input name="Number of vessels fluro" placeholder="0-3" required>
+            <p class="field-help">Type how many major vessels are shown in the test result. This is usually 0 to 3.</p>
+
+            <label>Thallium Test</label>
+            <input name="Thallium" placeholder="3 = Normal, 6 = Fixed defect, 7 = Reversible defect" required>
+            <p class="field-help">Type the thallium number from your report. Common values are 3, 6, and 7.</p>
+
+            <button type="submit">Predict Heart Risk</button>
+
+        </form>
+
+        {% if result %}
+            <div class="result-box 
+                {% if risk >= 60 %}
+                    danger
+                {% elif risk >= 30 %}
+                    warning
+                {% else %}
+                    safe
+                {% endif %}
+            ">
+                <h2>{{ result }}</h2>
+                <h3>Risk Level: {{ risk }}%</h3>
+
+                {% if risk >= 60 %}
+                    <p>High risk. Please consult a doctor immediately.</p>
+                {% elif risk >= 30 %}
+                    <p>Moderate risk. Improve lifestyle and monitor health.</p>
+                {% else %}
+                    <p>Low risk. Keep maintaining a healthy lifestyle.</p>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <br>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+</body>
+</html>

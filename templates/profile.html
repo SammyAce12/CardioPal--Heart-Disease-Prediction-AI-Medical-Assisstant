@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile - CardioPal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="profile-page">
+
+<div class="navbar">
+    <h2>CardioPal</h2>
+    <div class="nav-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/guide">How to Use</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<main class="profile-shell">
+    <section class="profile-hero">
+        <div class="profile-badge">CP</div>
+        <p class="eyebrow">Account Center</p>
+        <h1>{{ user }}</h1>
+        <p class="profile-subtitle">Manage your CardioPal details and keep your account secure from one place.</p>
+
+        <div class="profile-stats-grid">
+            <article class="profile-stat">
+                <span class="stat-value">{{ history_count }}</span>
+                <span class="stat-label">Heart checks saved</span>
+            </article>
+            <article class="profile-stat">
+                <span class="stat-value">Active</span>
+                <span class="stat-label">Monitoring status</span>
+            </article>
+        </div>
+
+        <div class="profile-actions">
+            <a href="/dashboard" class="btn">Back to Dashboard</a>
+            <a href="/logout" class="btn logout">Log Out</a>
+        </div>
+    </section>
+
+    <section class="profile-panel">
+        <div class="panel-header">
+            <p class="eyebrow">Security</p>
+            <h2>Change password</h2>
+            <p>Use your current password, then choose a new one with at least 6 characters.</p>
+        </div>
+
+        {% if message %}
+            <div class="feedback success">{{ message }}</div>
+        {% endif %}
+
+        {% if error %}
+            <div class="feedback error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" class="password-form">
+            <label for="current_password">Current password</label>
+            <input id="current_password" name="current_password" type="password" placeholder="Enter your current password" required>
+
+            <label for="new_password">New password</label>
+            <input id="new_password" name="new_password" type="password" placeholder="Create a stronger password" required>
+
+            <label for="confirm_password">Confirm new password</label>
+            <input id="confirm_password" name="confirm_password" type="password" placeholder="Re-enter your new password" required>
+
+            <button type="submit">Update Password</button>
+        </form>
+    </section>
+</main>
+
+</body>
+</html>
