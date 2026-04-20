@@ -123,7 +123,7 @@ CardioPal/
 ### 🔹 1. Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/CardioPal.git
+git clone https://github.com/SammyAce12/CardioPal--Heart-Disease-Prediction-AI-Medical-Assisstant
 cd CardioPal
 ```
 
